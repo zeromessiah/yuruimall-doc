@@ -11,13 +11,13 @@ create table pms_attr
     `value_select` char(255)    DEFAULT NULL COMMENT '可选值列表[用逗号分隔]',
     `attr_type`    tinyint(4)   DEFAULT NULL COMMENT '属性类型[0-销售属性，1-基本属性，2-既是销售属性又是基本属性]',
     enable         bigint comment '启用状态[0 - 禁用，1 - 启用]',
-    catelog_id     bigint comment '所属分类',
+    category_id     bigint comment '所属分类',
     show_desc      tinyint comment '快速展示【是否展示在介绍上；0-否 1-是】，在sku中仍然可以调整',
     constraint pk primary key (attr_id)
 ) comment '商品属性';
 
-drop table if exists pms_attr_attrgroup_relation;
-create table pms_attr_attrgroup_relation
+drop table if exists pms_attr_group_relation;
+create table pms_attr_group_relation
 (
     id            bigint not null auto_increment comment 'id',
     attr_id       bigint comment '属性id',
@@ -32,9 +32,9 @@ create table pms_attr_group
    attr_group_id        bigint not null auto_increment comment '分组id',
    attr_group_name      char(20) comment '组名',
    sort                 int comment '排序',
-   descript             varchar(255) comment '描述',
+   description             varchar(255) comment '描述',
    icon                 varchar(255) comment '组图标',
-   catelog_id           bigint comment '所属分类id',
+   category_id           bigint comment '所属分类id',
    constraint pk primary key (attr_group_id)
 )comment '属性分组';
 
@@ -44,7 +44,7 @@ create table pms_brand
    brand_id             bigint not null auto_increment comment '品牌id',
    name                 char(50) comment '品牌名',
    logo                 varchar(2000) comment '品牌logo地址',
-   descript             longtext comment '介绍',
+   description             longtext comment '介绍',
    show_status          tinyint comment '显示状态[0-不显示；1-显示]',
    first_letter         char(1) comment '检索首字母',
    sort                 int comment '排序',
@@ -71,9 +71,9 @@ create table pms_category_brand_relation
 (
    id                   bigint not null auto_increment,
    brand_id             bigint comment '品牌id',
-   catelog_id           bigint comment '分类id',
+   category_id           bigint comment '分类id',
    brand_name           varchar(255),
-   catelog_name         varchar(255),
+   category_name         varchar(255),
    constraint pk primary key (id)
 )comment '品牌分类关联';
 
@@ -192,6 +192,6 @@ drop table if exists pms_spu_info_desc;
 create table pms_spu_info_desc
 (
    spu_id               bigint not null comment '商品id',
-   decript              longtext comment '商品介绍',
+   description              longtext comment '商品介绍',
    constraint pk primary key (spu_id)
 )comment 'spu信息介绍';
